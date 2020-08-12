@@ -57,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@id/et_cv_satuan" />
 
         <TextView
-            android:id="@+id/tv_cv_hargasatuan"
+            android:id="@+id/tv_cv_satuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
