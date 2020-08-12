@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.recvi_item_belanjaan.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class ItemAdaptor (val listItem: List<Item>) : RecyclerView.Adapter<ItemAdaptor.ViewHolder>() {
+class ItemAdapter (val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     private lateinit var db: ItemDatabase
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 
