@@ -1,16 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="16dp"
+    app:cardCornerRadius="16dp"
+    android:layout_margin="8dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <EditText
-    android:id="@+id/et_cv_nama"
-    android:hint="Nama Belanjaan"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
 
+        <EditText
+            android:id="@+id/et_cv_nama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:hint="Nama Belanjaan"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginVertical="8dp"/>
+        <EditText
+            android:id="@+id/et_cv_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="3"
+            android:textSize="18sp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_cv_nama"
+            android:layout_marginVertical="8dp"/>
+        <EditText
+            android:id="@+id/et_cv_satuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Ikat"
+            android:textSize="18sp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_cv_quantity"
+            android:layout_marginVertical="8dp"/>
+        <EditText
+            android:id="@+id/et_cv_hargasatuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="3000"
+            android:textSize="18sp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_cv_satuan"
+            android:layout_marginVertical="8dp"/>
+        <TextView
+            android:id="@+id/tv_cv_hargasatuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/Ikat"
+            android:textSize="18sp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/et_cv_hargasatuan"
+            app:layout_constraintTop_toTopOf="@id/et_cv_hargasatuan"
+            app:layout_constraintBottom_toBottomOf="@id/et_cv_hargasatuan"
+            android:layout_marginVertical="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_cv_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Harga : Rp. "
+            android:textSize="18sp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_cv_hargasatuan"
+            android:layout_marginVertical="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_cv_totalharga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_cv_tag"
+            app:layout_constraintTop_toTopOf="@id/tv_cv_tag"
+            app:layout_constraintBottom_toBottomOf="@id/tv_cv_tag"
+            android:layout_marginVertical="8dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_cv_sudah"
+            android:layout_marginStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_cv_tag"
+            android:layout_marginVertical="8dp"/>
+        <TextView
+            android:id="@+id/tv_cv_sudahdibeli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sudah dibeli"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/cb_cv_sudah"
+            app:layout_constraintTop_toTopOf="@id/cb_cv_sudah"
+            app:layout_constraintBottom_toBottomOf="@id/cb_cv_sudah"
+            android:layout_marginVertical="8dp"/>
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_baseline_delete_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_cv_sudahdibeli"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="16dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
