@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="16dp"
+    android:layout_margin="8dp"
     app:cardCornerRadius="16dp"
-    android:layout_margin="8dp">
+    app:cardElevation="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,101 +15,107 @@
             android:id="@+id/et_cv_nama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
             android:layout_marginStart="8dp"
             android:hint="Nama Belanjaan"
             android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginVertical="8dp"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/et_cv_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="8dp"
             android:hint="3"
             android:textSize="18sp"
-            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_cv_nama"
-            android:layout_marginVertical="8dp"/>
+            app:layout_constraintTop_toBottomOf="@id/et_cv_nama" />
+
         <EditText
             android:id="@+id/et_cv_satuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="8dp"
             android:hint="Ikat"
             android:textSize="18sp"
-            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_cv_quantity"
-            android:layout_marginVertical="8dp"/>
+            app:layout_constraintTop_toBottomOf="@id/et_cv_quantity" />
+
         <EditText
             android:id="@+id/et_cv_hargasatuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="8dp"
             android:hint="3000"
             android:textSize="18sp"
-            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_cv_satuan"
-            android:layout_marginVertical="8dp"/>
+            app:layout_constraintTop_toBottomOf="@id/et_cv_satuan" />
+
         <TextView
             android:id="@+id/tv_cv_hargasatuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="8dp"
             android:text="/Ikat"
             android:textSize="18sp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/et_cv_hargasatuan"
-            app:layout_constraintTop_toTopOf="@id/et_cv_hargasatuan"
             app:layout_constraintBottom_toBottomOf="@id/et_cv_hargasatuan"
-            android:layout_marginVertical="8dp"/>
+            app:layout_constraintStart_toEndOf="@+id/et_cv_hargasatuan"
+            app:layout_constraintTop_toTopOf="@id/et_cv_hargasatuan" />
 
         <TextView
             android:id="@+id/tv_cv_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="8dp"
             android:text="Total Harga : Rp. "
             android:textSize="18sp"
-            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_cv_hargasatuan"
-            android:layout_marginVertical="8dp"/>
+            app:layout_constraintTop_toBottomOf="@id/et_cv_hargasatuan" />
 
         <TextView
             android:id="@+id/tv_cv_totalharga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
             android:text="9000"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/tv_cv_tag"
-            app:layout_constraintTop_toTopOf="@id/tv_cv_tag"
             app:layout_constraintBottom_toBottomOf="@id/tv_cv_tag"
-            android:layout_marginVertical="8dp"/>
+            app:layout_constraintStart_toEndOf="@+id/tv_cv_tag"
+            app:layout_constraintTop_toTopOf="@id/tv_cv_tag" />
 
         <CheckBox
             android:id="@+id/cb_cv_sudah"
-            android:layout_marginStart="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_cv_tag"
-            android:layout_marginVertical="8dp"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_cv_tag" />
+
         <TextView
             android:id="@+id/tv_cv_sudahdibeli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
             android:text="Sudah dibeli"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/cb_cv_sudah"
-            app:layout_constraintTop_toTopOf="@id/cb_cv_sudah"
             app:layout_constraintBottom_toBottomOf="@id/cb_cv_sudah"
-            android:layout_marginVertical="8dp"/>
+            app:layout_constraintStart_toEndOf="@+id/cb_cv_sudah"
+            app:layout_constraintTop_toTopOf="@id/cb_cv_sudah" />
+
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_margin="16dp"
             android:src="@drawable/ic_baseline_delete_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_cv_sudahdibeli"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_cv_sudahdibeli" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
