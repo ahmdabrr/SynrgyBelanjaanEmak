@@ -124,11 +124,9 @@ class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.V
                 item.apply {
                     quantity = holder.itemView.et_cv_quantity.text.toString().toInt()
                 }
-
                 GlobalScope.launch {
                     val rowUpdated = db.itemDao().updateItem(item)
                     (holder.itemView.context as MainActivity).runOnUiThread {
-
                         if (rowUpdated > 0) {
                             Toast.makeText(
                                 holder.itemView.context,
