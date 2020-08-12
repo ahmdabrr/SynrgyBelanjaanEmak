@@ -73,15 +73,40 @@ class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.V
             listItem[position].checkBarang
         )
 
+        if (listItem[position].checkBarang) {
+            holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFEE58"))
+            holder.itemView.cb_cv_sudah.isChecked = true
+        } else {
+            holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            holder.itemView.cb_cv_sudah.isChecked = false
+        }
+
+
         holder.itemView.cb_cv_sudah.setOnClickListener {
-            item.apply {
-                checkBarang = holder.itemView.cb_cv_sudah.isChecked
-            }
-            GlobalScope.launch {
-                val rowUpdated = db.itemDao().updateItem(item)
-            }
             if (holder.itemView.cb_cv_sudah.isChecked) {
                 holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFEE58"))
+                item.apply {
+                    checkBarang = true
+                }
+                GlobalScope.launch {
+                    val rowUpdated = db.itemDao().updateItem(item)
+                    (holder.itemView.context as MainActivity).runOnUiThread {
+                        if (rowUpdated > 0) {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Test",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Nama gagal terupdate",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+
                 Toast.makeText(
                     holder.itemView.context,
                     "Sudah dibeli",
@@ -89,6 +114,27 @@ class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.V
                 ).show()
             } else {
                 holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                item.apply {
+                    checkBarang = false
+                }
+                GlobalScope.launch {
+                    val rowUpdated = db.itemDao().updateItem(item)
+                    (holder.itemView.context as MainActivity).runOnUiThread {
+                        if (rowUpdated > 0) {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Test 2",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Nama gagal terupdate",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
                 Toast.makeText(
                     holder.itemView.context,
                     "Belum terbeli",
