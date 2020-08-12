@@ -59,8 +59,5 @@ class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.V
         holder.itemView.et_cv_nama.addTextChangedListener {
 
         }
-        //nambahain addActivity (disini)
-        holder.itemView.et_cv_nama.addTextChangedListener{}
-
     }
 }
