@@ -4,17 +4,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recvi_item_belanjaan.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class ItemAdapter (val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     private lateinit var db: ItemDatabase
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recvi_item_belanjaan,parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.recvi_item_belanjaan, parent, false)
         return ViewHolder(view)
     }
 
@@ -29,20 +32,32 @@ class ItemAdapter (val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.
         holder.itemView.et_cv_hargasatuan.setText(listItem[position].hargaSatuan.toString())
 
         ItemDatabase.getInstance(holder.itemView.context)?.let {
-            db =it
+            db = it
         }
-        holder.itemView.iv_delete.setOnClickListener{
+        holder.itemView.iv_delete.setOnClickListener {
             GlobalScope.launch {
                 val totalRowDeleted = db.itemDao().deleteItem(listItem[position])
-                (holder.itemView.context as MainActivity).runOnUiThread{
+                (holder.itemView.context as MainActivity).runOnUiThread {
                     if (totalRowDeleted > 0) {
-                        Toast.makeText(holder.itemView.context, "Data ${listItem[position].name} Sukses Dihapus", Toast.LENGTH_LONG).show()
-                    } else{
-                        Toast.makeText(holder.itemView.context, "Data ${listItem[position].name} Gagal Dihapus", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            holder.itemView.context,
+                            "Data ${listItem[position].name} Sukses Dihapus",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            holder.itemView.context,
+                            "Data ${listItem[position].name} Gagal Dihapus",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
                 (holder.itemView.context as MainActivity).fetchData()
             }
+        }
+
+        holder.itemView.et_cv_nama.addTextChangedListener {
+
         }
         //nambahain addActivity (disini)
 
