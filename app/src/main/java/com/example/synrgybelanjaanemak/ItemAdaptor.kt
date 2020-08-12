@@ -44,7 +44,7 @@ class ItemAdaptor (val listItem: List<Item>) : RecyclerView.Adapter<ItemAdaptor.
                 (holder.itemView.context as MainActivity).fetchData()
             }
         }
+        //nambahain addActivity (disini)
 
-        
     }
 }
