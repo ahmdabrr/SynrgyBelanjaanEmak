@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         fetchData()
     }
+
     fun fetchData(){
         GlobalScope.launch {
             val listItem = db.itemDao().readAllItem()
