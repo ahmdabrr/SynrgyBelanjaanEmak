@@ -1,5 +1,7 @@
 package com.example.synrgybelanjaanemak
 
+
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import kotlinx.coroutines.launch
 
 class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     private lateinit var db: ItemDatabase
+    private lateinit var item: Item
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -56,7 +59,39 @@ class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.V
             }
         }
 
+        holder.itemView.cb_cv_sudah.setOnClickListener {
+            if (holder.itemView.cb_cv_sudah.isChecked()){
+                holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFEE58"))
+            } else{
+                holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            }
+        }
+
+
         holder.itemView.et_cv_nama.addTextChangedListener {
+            GlobalScope.launch {
+                item.apply {
+                    name = holder.itemView.et_cv_nama.text.toString()
+                }
+                GlobalScope.launch {
+                    val rowUpdated = db.itemDao().updateItem(item)
+                    (holder.itemView.context as MainActivity).runOnUiThread {
+                        if (rowUpdated > 0) {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Data ${listItem[position].name} Sukses terupdate",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Data ${listItem[position].name} Gagal terupdate",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+            }
         }
     }
 }
