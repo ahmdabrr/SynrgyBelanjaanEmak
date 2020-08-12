@@ -2,6 +2,7 @@ package com.example.synrgybelanjaanemak
 
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,6 @@ import kotlinx.coroutines.launch
 
 class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     private lateinit var db: ItemDatabase
-    private lateinit var item: Item
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -31,12 +31,17 @@ class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.V
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.et_cv_nama.setText(listItem[position].name)
         holder.itemView.et_cv_quantity.setText(listItem[position].quantity.toString())
-        holder.itemView.et_cv_satuan.setText(listItem[position].satuan.toString())
+        holder.itemView.et_cv_satuan.setText(listItem[position].satuan)
+        holder.itemView.tv_cv_satuan.setText(listItem[position].satuan)
         holder.itemView.et_cv_hargasatuan.setText(listItem[position].hargaSatuan.toString())
+        var totalHarga = listItem[position].quantity * listItem[position].hargaSatuan
+        Log.d("Binar","$totalHarga")
+        holder.itemView.tv_cv_totalharga.setText("$totalHarga")
 
         ItemDatabase.getInstance(holder.itemView.context)?.let {
             db = it
         }
+
         holder.itemView.iv_delete.setOnClickListener {
             GlobalScope.launch {
                 val totalRowDeleted = db.itemDao().deleteItem(listItem[position])
@@ -59,19 +64,29 @@ class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.V
             }
         }
 
-        holder.itemView.cb_cv_sudah.setOnClickListener {
-            if (holder.itemView.cb_cv_sudah.isChecked()){
-                holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFEE58"))
-            } else{
-                holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFFF"))
-            }
+        var item = Item(
+            listItem[position].id,
+            listItem[position].name,
+            listItem[position].quantity,
+            listItem[position].satuan,
+            listItem[position].hargaSatuan,
+            listItem[position].checkBarang
+        )
+
+        if (listItem[position].checkBarang) {
+            holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFEE58"))
+            holder.itemView.cb_cv_sudah.isChecked = true
+        } else {
+            holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            holder.itemView.cb_cv_sudah.isChecked = false
         }
 
 
-        holder.itemView.et_cv_nama.addTextChangedListener {
-            GlobalScope.launch {
+        holder.itemView.cb_cv_sudah.setOnClickListener {
+            if (holder.itemView.cb_cv_sudah.isChecked) {
+                holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFEE58"))
                 item.apply {
-                    name = holder.itemView.et_cv_nama.text.toString()
+                    checkBarang = true
                 }
                 GlobalScope.launch {
                     val rowUpdated = db.itemDao().updateItem(item)
@@ -79,19 +94,151 @@ class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.V
                         if (rowUpdated > 0) {
                             Toast.makeText(
                                 holder.itemView.context,
-                                "Data ${listItem[position].name} Sukses terupdate",
-                                Toast.LENGTH_LONG
+                                "Test",
+                                Toast.LENGTH_SHORT
                             ).show()
                         } else {
                             Toast.makeText(
                                 holder.itemView.context,
-                                "Data ${listItem[position].name} Gagal terupdate",
-                                Toast.LENGTH_LONG
+                                "Nama gagal terupdate",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+
+                Toast.makeText(
+                    holder.itemView.context,
+                    "Sudah dibeli",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                item.apply {
+                    checkBarang = false
+                }
+                GlobalScope.launch {
+                    val rowUpdated = db.itemDao().updateItem(item)
+                    (holder.itemView.context as MainActivity).runOnUiThread {
+                        if (rowUpdated > 0) {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Test 2",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Nama gagal terupdate",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+                Toast.makeText(
+                    holder.itemView.context,
+                    "Belum terbeli",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        holder.itemView.et_cv_nama.addTextChangedListener {
+            item.apply {
+                name = holder.itemView.et_cv_nama.text.toString()
+            }
+            GlobalScope.launch {
+                val rowUpdated = db.itemDao().updateItem(item)
+                (holder.itemView.context as MainActivity).runOnUiThread {
+                    if (rowUpdated > 0) {
+                        Toast.makeText(
+                            holder.itemView.context,
+                            "Nama terupdate",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            holder.itemView.context,
+                            "Nama gagal terupdate",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            holder.itemView.et_cv_quantity.addTextChangedListener {
+                item.apply {
+                    quantity = holder.itemView.et_cv_quantity.text.toString().toInt()
+                }
+                GlobalScope.launch {
+                    val rowUpdated = db.itemDao().updateItem(item)
+                    (holder.itemView.context as MainActivity).runOnUiThread {
+                        if (rowUpdated > 0) {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Quantity terupdate",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Quantity gagal terupdate",
+                                Toast.LENGTH_SHORT
                             ).show()
                         }
                     }
                 }
             }
+
+            holder.itemView.et_cv_satuan.addTextChangedListener {
+                item.apply {
+                    satuan = holder.itemView.et_cv_satuan.text.toString()
+                }
+                GlobalScope.launch {
+                    val rowUpdated = db.itemDao().updateItem(item)
+                    (holder.itemView.context as MainActivity).runOnUiThread {
+                        if (rowUpdated > 0) {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Satuan terupdate",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Satuan gagal terupdate",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
+
+            holder.itemView.et_cv_hargasatuan.addTextChangedListener {
+                item.apply {
+                    hargaSatuan = holder.itemView.et_cv_hargasatuan.text.toString().toInt()
+                }
+                GlobalScope.launch {
+                    val rowUpdated = db.itemDao().updateItem(item)
+                    (holder.itemView.context as MainActivity).runOnUiThread {
+                        if (rowUpdated > 0) {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Harga satuan terupdate",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Harga satuan gagal terupdate",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
+
+
         }
     }
 }
