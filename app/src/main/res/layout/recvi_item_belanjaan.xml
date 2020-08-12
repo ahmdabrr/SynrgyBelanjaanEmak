@@ -5,7 +5,9 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="16dp">
+    app:cardElevation="16dp"
+    android:background="#fff"
+    android:id="@+id/cv_recvi">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
