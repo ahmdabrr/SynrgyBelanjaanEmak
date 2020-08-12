@@ -59,9 +59,14 @@ class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.V
             }
         }
 
-        if (holder.itemView.cb_cv_sudah.isChecked == true){
-            holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFEE58"))
+        holder.itemView.cb_cv_sudah.setOnClickListener {
+            if (holder.itemView.cb_cv_sudah.isChecked()){
+                holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFEE58"))
+            } else{
+                holder.itemView.cv_recvi.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            }
         }
+
 
         holder.itemView.et_cv_nama.addTextChangedListener {
             GlobalScope.launch {
