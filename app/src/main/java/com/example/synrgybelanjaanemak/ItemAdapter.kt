@@ -88,7 +88,5 @@ class ItemAdapter(val listItem: List<Item>) : RecyclerView.Adapter<ItemAdapter.V
                 }
             }
         }
-        //nambahain addActivity (disini)
-
     }
 }
